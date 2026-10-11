@@ -12,7 +12,9 @@ LIFT = 34
 GAP = 7
 SIZES = (9, 10, 11, 12)
 FONT = "Arial"
+INTRO_FONT = "Tahoma"
 BG = "#060208"
+INTRO_DURATION = 6000
 
 s = t.Screen()
 s.setup(800, 800)
@@ -183,6 +185,7 @@ FLASH = (1.0, 0.78, 0.78)
 main_ids = []
 active = []
 tick_no = 0
+heart_started = False
 
 
 def clamp(v):
@@ -278,8 +281,46 @@ def shimmer():
     cv.after(140, shimmer)
 
 
-try:
+def start_heart(event=None):
+    global heart_started
+    if heart_started:
+        return
+
+    heart_started = True
+    s.onclick(None)
+    s.onkey(None, "space")
+    cv.delete("intro")
     cv.after(200, step)
+
+
+def show_intro():
+    cv.create_text(
+        0, -35,
+        text=(
+            "میدونم روز دختر گذشت و میدونم خیلی کادوی بهتری باید بهت میدادم "
+            "ولی قول میدم یه روز بهترینارو برات بگیرم"
+        ),
+        font=(INTRO_FONT, 20, "bold"),
+        fill="#ffe6e6",
+        width=640,
+        justify="center",
+        tags="intro",
+    )
+    cv.create_text(
+        0, 105,
+        text="Click anywhere or press Space",
+        font=(FONT, 11, "italic"),
+        fill="#b65b68",
+        tags="intro",
+    )
+    s.onclick(start_heart)
+    s.onkey(start_heart, "space")
+    s.listen()
+    cv.after(INTRO_DURATION, start_heart)
+
+
+try:
+    show_intro()
     t.done()
 except (t.Terminator, Exception):
     pass
