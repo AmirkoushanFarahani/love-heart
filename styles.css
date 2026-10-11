@@ -1,0 +1,124 @@
+:root {
+  color-scheme: dark;
+  background: #060208;
+  font-family: "Noto Naskh Arabic", Tahoma, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(120, 4, 32, .19), transparent 30rem),
+    #060208;
+}
+
+main, #intro, #heart {
+  width: 100vw;
+  height: 100vh;
+}
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: 28px;
+  overflow: hidden;
+  transition: opacity .9s ease, visibility .9s ease;
+}
+
+#intro.leaving {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.message-card {
+  position: relative;
+  z-index: 1;
+  width: min(680px, 100%);
+  padding: clamp(30px, 7vw, 64px) clamp(24px, 7vw, 76px);
+  text-align: center;
+  border: 1px solid rgba(255, 193, 201, .18);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(73, 4, 20, .55), rgba(10, 2, 9, .76));
+  box-shadow: 0 20px 90px rgba(0, 0, 0, .45), inset 0 0 60px rgba(213, 24, 71, .05);
+  backdrop-filter: blur(10px);
+}
+
+.tiny-heart {
+  display: block;
+  margin-bottom: 22px;
+  color: #f77b91;
+  font-family: Georgia, serif;
+  font-size: 31px;
+  text-shadow: 0 0 22px rgba(255, 73, 113, .85);
+  animation: pulse 1.7s ease-in-out infinite;
+}
+
+#message {
+  margin: 0;
+  color: #fff1f2;
+  font-size: clamp(22px, 3.5vw, 31px);
+  font-weight: 700;
+  line-height: 2;
+  text-shadow: 0 2px 20px rgba(255, 220, 225, .1);
+}
+
+#start-button {
+  display: block;
+  margin: 30px auto 10px;
+  padding: 12px 23px;
+  cursor: pointer;
+  border: 1px solid rgba(255, 189, 201, .45);
+  border-radius: 999px;
+  color: #fff5f6;
+  background: rgba(186, 26, 67, .25);
+  font: 700 16px "Noto Naskh Arabic", Tahoma, sans-serif;
+  transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+#start-button:hover, #start-button:focus-visible {
+  outline: none;
+  transform: translateY(-2px);
+  background: rgba(216, 43, 87, .45);
+  box-shadow: 0 8px 30px rgba(225, 51, 93, .25);
+}
+
+.wait-note {
+  color: rgba(255, 220, 226, .52);
+  font-size: 14px;
+}
+
+.glow {
+  position: absolute;
+  width: 42vmax;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: .26;
+}
+
+.glow-one { top: -22vmax; right: -14vmax; background: #6d071e; }
+.glow-two { bottom: -25vmax; left: -16vmax; background: #350012; }
+
+#heart {
+  display: block;
+  opacity: 0;
+  transition: opacity 1s ease .25s;
+}
+
+#heart.visible { opacity: 1; }
+
+@keyframes pulse {
+  50% { transform: scale(1.16); filter: brightness(1.22); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
